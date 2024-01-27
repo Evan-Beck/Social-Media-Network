@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-
-
+const reactionSchema = require('../reaction');
 
 const thoughtSchema = new Schema(
     {
@@ -14,13 +13,13 @@ const thoughtSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            get: timestamp => timestamp.toISOString() // Example getter for formatting
+            get: timestamp => timestamp.toISOString() 
         },
         username: {
             type: String,
             required: true
         },
-        reactions: [reactionSchema] // Replace with your reactionSchema
+        reactions: [reactionSchema] 
     },
     {
         toJSON: {
@@ -31,7 +30,7 @@ const thoughtSchema = new Schema(
     }
 );
 
-// Virtual for reactionCount
+//Virtual for reactionCount. 
 thoughtSchema.virtual('reactionCount').get(function() {
     return this.reactions.length;
 });

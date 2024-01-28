@@ -1,10 +1,10 @@
+// Importing Mongoose and destructuring Schema and Types.
 const mongoose = require('mongoose');
 const { Schema, Types } = mongoose;
 
-
-// const reactionSchema = require('../reaction');
-
+// Defines schema for reactions as subdocuments within Thoughts.
 const reactionSchema = new Schema({
+     // Unique identifier for each reaction using ObjectId.
     reactionId: {
         type: Schema.Types.ObjectId,
         default: () => new Types.ObjectId()
@@ -29,7 +29,7 @@ const reactionSchema = new Schema({
     },
     id: false
 });
-
+// Schema definition for Thoughts. 
 const thoughtSchema = new Schema(
     {
         thoughtText: {
@@ -58,11 +58,11 @@ const thoughtSchema = new Schema(
     }
 );
 
-//Virtual for reactionCount. 
+//Virtual property for reactionCount, this returns the number of reactions for each thought. 
 thoughtSchema.virtual('reactionCount').get(function() {
     return this.reactions.length;
 });
 
 const Thought = mongoose.model('Thought', thoughtSchema);
-
+// Export so the thought model can be used elsewhere in our application. 
 module.exports = Thought;

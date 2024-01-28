@@ -1,6 +1,8 @@
+// Express framework and create a router object for defining routes.
 const express = require('express');
 const router = express.Router();
 
+// Imports from user controller, these functions are responsible for handling the logic associated with each route.
 const {
     getUsers, // gets all users
   getSingleUser,

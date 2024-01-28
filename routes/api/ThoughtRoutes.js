@@ -1,4 +1,5 @@
 const router = require('express').Router();
+// Import controller functions from thought controller. 
 const {
   getThoughts, // Gets all thoughts. 
   getSingleThought,
@@ -9,7 +10,7 @@ const {
   removeReaction
 } = require('../../controllers/ThoughtController');
 
-// GET all thoughts and POST a new thought.
+// GET all thoughts and POST a new thought route definition.
 router.route('/')
   .get(getThoughts)
   .post(createThought);

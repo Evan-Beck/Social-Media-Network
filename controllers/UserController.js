@@ -3,9 +3,10 @@ const { User, Thought } = require('../models');
 module.exports = {
     // Gets all users.
     async getUsers(req, res) {
+        // Retrieve all users and populate their 'thoughts' and 'friends' fields.
         try {
             const users = await User.find().populate('thoughts').populate('friends');
-            res.json(users);
+            res.json(users);// Send the list of users as a JSON response.
         } catch (err) {
             console.error(err);
             res.status(500).json(err);
@@ -15,6 +16,7 @@ module.exports = {
     // Gets a single user by ID.
     async getSingleUser(req, res) {
         try {
+            // Retrieve a user by their ID provided in the request parameters.
             const user = await User.findById(req.params.userId).populate('thoughts').populate('friends');
             if (!user) {
                 return res.status(404).json({ message: 'No user found with this id!' });
@@ -28,6 +30,7 @@ module.exports = {
 
     // Creates a new user.
     async createUser(req, res) {
+        // Create a new user with the data sent in the request body.
         try {
             const user = await User.create(req.body);
             res.json(user);
@@ -40,10 +43,11 @@ module.exports = {
     // Updates a user by ID.
     async updateUser(req, res) {
         try {
+            // Update a user's data based on their ID and the new data provided in the request body.
             const user = await User.findOneAndUpdate(
-                { _id: req.params.userId },
-                { $set: req.body },
-                { new: true, runValidators: true }
+                { _id: req.params.userId }, // User ID from URL parameters.
+                { $set: req.body }, // New data for the user.
+                { new: true, runValidators: true } // Options for returning the updated document and running schema validators.
             );
             if (!user) {
                 return res.status(404).json({ message: 'No user found with this id!' });
@@ -107,16 +111,3 @@ module.exports = {
         }
     }
 };
-
-
-
-
-
-
-
-
-    
-
-
-
-
